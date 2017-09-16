@@ -1,6 +1,18 @@
 const { getChannelItems, getTaggings, channelIds } = require('./reuters');
 const { getSentiment } = require('./textanalyze');
 
+function promiseAllSync(array, fn) {
+  var results = [];
+  return array.reduce(function(p, item) {
+      return p.then(function() {
+          return fn(item).then(function(data) {
+              results.push(data);
+              return results;
+          });
+      });
+  }, Promise.resolve());
+}
+
 function tick(interval) {
   return Promise.all(
     channelIds
@@ -23,28 +35,23 @@ function tick(interval) {
     });
   }).then(allItems => {
     return new Promise((resolve, reject) => {
-      const taggingPromises = allItems
-        .map((item, index) => {
-          const lang = item.language;
-          if (lang === 'en' || lang === 'es' || lang === 'fr') {
-            return new Promise((resolve) => {
-              setTimeout(() => resolve(getTaggings(item.detail)), 1500 * index);
-            })
-          } else {
-            return new Promise(resolve => resolve(undefined));
-          }
-        });
-      return Promise.all(taggingPromises)
-        .then(taggings => {
-          resolve(allItems.map((item, index) => {
-            item.tags = taggings[index];
-            return item;
-          }));
-        }).catch(err => {
-          reject(err);
-        });
+      promiseAllSync(allItems, (item) => {
+        let lang = item.language;
+        if (lang === 'en' || lang === 'es' || lang === 'fr') {
+          return getTaggings(item.detail);
+        } else {
+          return Promise.resolve();
+        }
+      }).then(taggings => {
+        resolve(allItems.map((item, index) => {
+          item.tags = taggings[index];
+          return item;
+        }));
+      }).catch(err => {
+        reject(err);
+      });
     });
   });
-};
+}
 
 module.exports = tick;
