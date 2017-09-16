@@ -222,13 +222,41 @@ body {
 }
 
 .states.negative {
-  fill: green;
+  fill: #63A69F;
 }
 .states.positive {
-  fill: red;
+  fill: #FF8586;
 }
+.states.neutral {
+  fill: #DECEB3;
+}
+/* Legend */
 
-
+ul {
+  padding: 0;
+}
+.legendbox li {
+  list-style-type: none;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0.9em;
+  margin-right: 1.5em;
+  color: #FFFFFF;
+}
+.legendbox li div {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 50%;
+  background-color: #FF8586;
+}
+.legendbox li div.sad {
+  background-color: #63A69F;
+}
+.legendbox li div.neutral {
+  background-color: #DECEB3;
+}
 @media screen and (max-width: 700px) {
   .half {
     width: 100% !important;
