@@ -1,7 +1,7 @@
 const request = require('request-promise-native');
+const { textAnalyzeToken } = require('./api-tokens');
 
 const textAnalyzeApiUrl = 'https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
-const textAnalyzeToken = '1771a25b81b74777a6fe40f4ad39882f';
 
 function getSentiment(array) {
 

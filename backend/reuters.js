@@ -1,31 +1,30 @@
 const request = require('request-promise-native');
 const xml2js = require('xml2js');
+const { taggingToken, reutersToken } = require('./api-tokens');
 
-const reutersToken = '0Uar2fCpykWmqCu0MhrDn2n6/ssLT91S81kIX5wuiTI=';
 const reutersApiUrl = 'http://rmb.reuters.com/rmd/rest/xml';
-const taggingToken = 'S9lrS8NnxMV8L9KjArzSKCWfeVIFwPS5';
 const taggingApiUrl = 'https://api.thomsonreuters.com/permid/calais';
 
 const parser = new xml2js.Parser();
 
 
 const channelIds = [
-    'BEQ259',
-    'CLE548',
-    'Efm208',
-    'FES376',
-    'Iwu647',
-    'LFL980',
-    'QTZ240',
-    'STK567',
-    'VEi502',
-    'Wbz248',
-    'bcd525',
-    'gFT847',
-    'mUo350',
-    'shl347',
-    'uNx795',
-    'wbq437'
+  'BEQ259',
+  'CLE548',
+  'Efm208',
+  'FES376',
+  'Iwu647',
+  'LFL980',
+  'QTZ240',
+  'STK567',
+  'VEi502',
+  'Wbz248',
+  'bcd525',
+  'gFT847',
+  'mUo350',
+  'shl347',
+  'uNx795',
+  'wbq437'
 ];
 
 function getChannelIds() {
