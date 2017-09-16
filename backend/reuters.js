@@ -8,6 +8,14 @@ const taggingApiUrl = 'https://api.thomsonreuters.com/permid/calais';
 
 const parser = new xml2js.Parser();
 
+/**
+ * Returns a promise that resolves to:
+ *   [
+ *      {headline: <string>, geography: <string>, detail: <string>},
+ *      ...
+ *   ]
+ * for a given channel
+ */
 function getChannelItems(channelId, maxAge = '1h') {
   return request
     .get(`${reutersApiUrl}/items?channel=${channelId}&mediaType=T&maxAge=${maxAge}&token=${reutersToken}`)
@@ -18,8 +26,30 @@ function getChannelItems(channelId, maxAge = '1h') {
           resolve(body.results.result);
         });
       });
+    }).then(results => {
+      const prettyResultPromises = results
+        .map(result => {
+          return new Promise((resolve, reject) => {
+            const pretty = {};
+            pretty.headline = result.headline[0];
+            pretty.geography = result.geography[0];
+            getItemDetail(result.id[0])
+              .then((detail) => {
+                pretty.detail = detail;
+                resolve(pretty);
+              }).catch(err => {
+                reject(err)
+              });
+          });
+        })
+      return Promise.all(prettyResultPromises);
     });
 }
+
+getChannelItems('STK567')
+  .then(items => {
+    console.log(items);
+  })
 
 function getItemDetail(itemId) {
   return request
@@ -80,6 +110,5 @@ function getTaggings(content) {
 
 module.exports = {
   getChannelItems,
-  getItemDetail,
   getTaggings
 };

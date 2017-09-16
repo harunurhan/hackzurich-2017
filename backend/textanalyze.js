@@ -1,32 +1,38 @@
 const request = require('request-promise-native');
 
-//map format:
-// { id: 1, text: 'text' }
+const textAnalyzeApiUrl = 'https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
+const textAnalyzeToken = '1771a25b81b74777a6fe40f4ad39882';
+
+/**
+ * @param {[id]: [text]} map 
+ */
 function getSentiment(map) {
 
     let documents = Object.keys(map)
-        .map(id => {return {id, language: 'en', text: map[id]}})
+        .map(id => {
+            return { id, language: 'en', text: map[id] };
+        });
 
     var options = {
-        url: 'https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
-        headers : {
-            'Ocp-Apim-Subscription-Key' : '1771a25b81b74777a6fe40f4ad39882f',
+        url: textAnalyzeApiUrl,
+        headers: {
+            'Ocp-Apim-Subscription-Key': textAnalyzeToken,
         },
-        body: {documents},
-        json: true // Automatically stringifies the body to JSON
+        body: { documents },
+        json: true
     };
 
     return request
         .post(options)
         .then(parsedBody => {
-            return new Promise((resolve, reject) => {
-                let res = parsedBody.documents.map(doc => {
+            return new Promise((resolve) => {
+                let pretty = parsedBody.documents.map(doc => {
                     return {
                         text: map[doc.id],
                         score: doc.score,
                     }
                 });
-                resolve(res);
+                resolve(pretty);
             });
         })
 }
