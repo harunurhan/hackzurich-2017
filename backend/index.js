@@ -1,10 +1,23 @@
 const express = require('express');
 const tick = require('./tick');
 const Socket = require('socket.io');
+var bodyParser = require('body-parser');
+
+
+
 
 // serve frontend app
 var app = express();
 app.use(express.static('../frontend'));
+
+// endpoint to latest news example: /news?last=10m
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.get('/news', (req, res) => {
+  tick(req.query.last)
+    .then(result => res.json())
+});
+
 app.listen(8080, () => {
   console.log('Serving static files at port 8080');
 });
