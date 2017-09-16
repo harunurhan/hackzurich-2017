@@ -1,0 +1,58 @@
+[
+  {
+    "date":"2015-10-08",
+    "headline":"Tropical storm warning issued for southern Baja California",
+    "geography":"MX",
+    "country":"Mexico",
+    "detail":"Sept 16 (Reuters) - A tropical storm warning was issued on\r\nSaturday for the southern Baja California peninsula as Hurricane\r\nNorma churns in the Pacific Ocean, the National Hurricane Center\r\nsaid.,Hurricane Norma, a Category 1 storm, was about 270 miles\r\n(435 km) south of Cabo San Lucas, Mexico, as it packed 75 mph\r\n(120 kph) winds, the center said.,\"Norma has been nearly stationary, but a slow northward\r\nmotion should begin later today and continue through Sunday,\"\r\nthe center said in an advisory.,Norma was expected to strengthen somewhat during the next\r\ncouple of days, the NHC said.,According to the NHC forecasts, Norma could hit southern\r\nparts of Baja California near to its popular tourist resorts by\r\nMonday, when it is projected to be weakening again.\r\n(Reporting by Brendan O'Brien in Milwaukee; editing by David\r\nClarke)",
+    "score":0.00087013840675354,
+    "tags":{
+      "socialTags":[
+        "2014 Pacific hurricane season",
+        "World history"
+      ],
+      "entities":[
+        {
+          "entityType":"Country",
+          "value":"Mexico",
+          "relevance":0.2
+        },
+        {
+          "entityType":"NaturalFeature",
+          "value":"Baja California peninsula",
+          "relevance":0.2
+        },
+        {
+          "entityType":"Editor",
+          "value":"David",
+          "relevance":0
+        },
+        {
+          "entityType":"MusicGroup",
+          "value":"the Pacific Ocean",
+          "relevance":0.2
+        },
+        {
+          "entityType":"City",
+          "value":"Cabo San Lucas",
+          "relevance":0.2
+        },
+        {
+          "entityType":"Organization",
+          "value":"National Hurricane Center",
+          "relevance":0.8
+        },
+        {
+          "entityType":"NaturalFeature",
+          "value":"Pacific Ocean",
+          "relevance":0.2
+        },
+        {
+          "entityType":"MusicGroup",
+          "value":"the National",
+          "relevance":0.2
+        }
+      ]
+    }
+  }
+]
