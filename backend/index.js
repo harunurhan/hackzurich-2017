@@ -4,7 +4,7 @@ const socket = require('socket.io')({
   serveClient: false,
 });
 
-const { getChannelItems, getItem } = require('./reuters');
+const { getChannelItems, getItemDetail } = require('./reuters');
 
 socket.attach(3000, {
   pingInterval: 10000,
