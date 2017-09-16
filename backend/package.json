@@ -1,0 +1,24 @@
+{
+  "name": "hack-zurich-2017-backend",
+  "version": "1.0.0",
+  "description": "Backend for Hack Zurich 2017 project (realtime geo news feed)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "geo",
+    "realtime",
+    "geo",
+    "news",
+    "sockets"
+  ],
+  "author": "Harun Urhan <harunurhan17@gmail.com> (http://harunurhan.github.io)",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4",
+    "socket.io": "^2.0.3",
+    "xml2js": "^0.4.19"
+  }
+}
