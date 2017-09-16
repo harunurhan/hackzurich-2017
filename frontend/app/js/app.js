@@ -1,10 +1,5 @@
-const socket = io('localhost:8080');
-socket.on('feed', data => {
-	console.log(data);
-});
 
 (function() {
-
 
 
 	/* UI Components */
@@ -24,7 +19,7 @@ socket.on('feed', data => {
 			button.value = 'Stop me!';
 			isRunning = true;
 		}
-		
+
 	}, false);
 
 
