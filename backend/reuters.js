@@ -43,6 +43,7 @@ function getChannelItems(channelId, maxAge = '15m') {
         });
       });
     }).then(results => {
+      results = results || [];
       const prettyResultPromises = results
         .map(result => {
           return new Promise((resolve, reject) => {
