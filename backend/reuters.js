@@ -70,6 +70,7 @@ function getChannelItems(channelId, maxAge = '15m') {
           return new Promise((resolve, reject) => {
             const pretty = {};
             pretty.headline = result.headline[0];
+            pretty.date = result.dateCreated[0];
             if (result.geography) {
               pretty.geography = result.geography[0];
             }
