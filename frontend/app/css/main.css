@@ -36,7 +36,7 @@ body {
 #sidebar {
   position: absolute;
   right:0;
-  max-width:50%;
+  max-width:40%;
   padding-left: 3em;
 }
 
