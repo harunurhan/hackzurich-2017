@@ -231,15 +231,18 @@
     setInterval(function(){
 	console.log(news);
         $.each(news, function () {
-            var feature = $('#state-' + this.geography);
-            console.log(this);
-            if (this.score < 0.4) {
-                feature.attr('class', 'states negative');
-            } else if (this.score >= 0.4 && this.score < 0.6) {
-                feature.attr('class', 'states neutral');
-            } else if (this.score >= 0.6) {
-                feature.attr('class', 'states positive');
-            }
+            $.each(this, function(){
+                var feature = $('#state-' + this.geography);
+                console.log();
+                if (this.score < 0.4) {
+                    feature.attr('class', 'states negative');
+                } else if (this.score >= 0.4 && this.score < 0.6) {
+                    feature.attr('class', 'states neutral');
+                } else if (this.score >= 0.6) {
+                    feature.attr('class', 'states positive');
+                }
+			});
+
         });
 	}, 1500);
 
