@@ -14,25 +14,34 @@ function getChannelItems(channelId) {
         parser.parseString(xml, (err, body) => {
           if (err) reject(err);
           resolve(body.results.result);
-        })
-      })
-    })
+        });
+      });
+    });
 }
 
-function getItem(itemId) {
+function getItemDetail(itemId) {
   return request
     .get(`${reutersApiUrl}/item?id=${itemId}&token=${reutersToken}`)
     .then((xml) => {
       return new Promise((resolve, reject) => {
         parser.parseString(xml, (err, body) => {
           if (err) reject(err);
-          resolve(body.results.result);
-        })
-      })
-    })
+          const paragraphs = body
+            .newsMessage
+            .itemSet[0]
+            .newsItem[0]
+            .contentSet[0]
+            .inlineXML[0]
+            .html[0]
+            .body[0]
+            .p
+          return paragraphs.join();
+        });
+      });
+    });
 }
 
 module.exports = {
   getChannelItems,
-  getItem
+  getItemDetail
 };
