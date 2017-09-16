@@ -9,19 +9,41 @@ const taggingApiUrl = 'https://api.thomsonreuters.com/permid/calais';
 const parser = new xml2js.Parser();
 
 
-function getChannelList() {
-    return request
-        .get(`${reutersApiUrl}/channels?token=${reutersToken}`)
-        .then((xml) => {
-            return new Promise((resolve, reject) => {
-                parser.parseString(xml, (err, body) => {
-                   if(err) reject(err);
-                   resolve(body.availableChannels);
-                });
-            });
-        }).then(results => {
-            return results;
-        })
+const channelIds = [
+    'BEQ259',
+    'CLE548',
+    'Efm208',
+    'FES376',
+    'Iwu647',
+    'LFL980',
+    'QTZ240',
+    'STK567',
+    'VEi502',
+    'Wbz248',
+    'bcd525',
+    'gFT847',
+    'mUo350',
+    'shl347',
+    'uNx795',
+    'wbq437'
+];
+
+function getChannelIds() {
+  return request
+    .get(`${reutersApiUrl}/channels?token=${reutersToken}`)
+    .then((xml) => {
+      return new Promise((resolve, reject) => {
+        parser.parseString(xml, (err, body) => {
+          if (err) reject(err);
+          const channelIds = body.availableChannels
+            .channelInformation
+            .map(channelInfo => channelInfo.alias[0]);
+          resolve(channelIds);
+        });
+      });
+    }).then(results => {
+      return results;
+    })
 }
 
 /**
@@ -51,6 +73,9 @@ function getChannelItems(channelId, maxAge = '15m') {
             pretty.headline = result.headline[0];
             if (result.geography) {
               pretty.geography = result.geography[0];
+            }
+            if (result.language) {
+              pretty.language = result.language[0];
             }
             getItemDetail(result.id[0])
               .then((detail) => {
@@ -124,5 +149,6 @@ function getTaggings(content) {
 
 module.exports = {
   getChannelItems,
-  getTaggings
+  getTaggings,
+  channelIds,
 };

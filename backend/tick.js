@@ -1,12 +1,11 @@
-const { getChannelItems, getTaggings } = require('./reuters');
+const { getChannelItems, getTaggings, channelIds } = require('./reuters');
 const { getSentiment } = require('./textanalyze');
 
-
 function tick(interval) {
-  return Promise.all([
-    getChannelItems('BEQ259', interval),
-    getChannelItems('STK567', interval)
-  ]).then(channels => {
+  return Promise.all(
+    channelIds
+      .map(channelId => getChannelItems(channelId, interval))
+  ).then(channels => {
     const allItems = channels
       .reduce((pre, cur) => pre.concat(cur), [])
     const allDetails = allItems
@@ -25,9 +24,16 @@ function tick(interval) {
   }).then(allItems => {
     return new Promise((resolve, reject) => {
       const taggingPromises = allItems
-        .map((item, index) => new Promise((resolve) => {
-          setTimeout(() => resolve(getTaggings(item.detail)), 1000 * index);
-        }))
+        .map((item, index) => {
+          const lang = item.language;
+          if (lang === 'en' || lang === 'es' || lang === 'fr') {
+            return new Promise((resolve) => {
+              setTimeout(() => resolve(getTaggings(item.detail)), 1000 * index);
+            })
+          } else {
+            return new Promise(resolve => resolve(undefined));
+          }
+        });
       return Promise.all(taggingPromises)
         .then(taggings => {
           resolve(allItems.map((item, index) => {
