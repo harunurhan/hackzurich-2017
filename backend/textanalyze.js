@@ -1,16 +1,13 @@
 const request = require('request-promise-native');
 
 const textAnalyzeApiUrl = 'https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
-const textAnalyzeToken = '1771a25b81b74777a6fe40f4ad39882';
+const textAnalyzeToken = '1771a25b81b74777a6fe40f4ad39882f';
 
-/**
- * @param {[id]: [text]} map 
- */
-function getSentiment(map) {
+function getSentiment(array) {
 
-    let documents = Object.keys(map)
-        .map(id => {
-            return { id, language: 'en', text: map[id] };
+    let documents = array
+        .map((text, id) => {
+            return { id, language: 'en', text };
         });
 
     var options = {
@@ -28,7 +25,7 @@ function getSentiment(map) {
             return new Promise((resolve) => {
                 let pretty = parsedBody.documents.map(doc => {
                     return {
-                        text: map[doc.id],
+                        index: doc.id,
                         score: doc.score,
                     }
                 });
@@ -40,4 +37,3 @@ function getSentiment(map) {
 module.exports = {
     getSentiment,
 };
-

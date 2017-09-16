@@ -32,7 +32,7 @@ function getChannelList() {
  *   ]
  * for a given channel
  */
-function getChannelItems(channelId, maxAge = '1h') {
+function getChannelItems(channelId, maxAge = '15m') {
   return request
     .get(`${reutersApiUrl}/items?channel=${channelId}&mediaType=T&maxAge=${maxAge}&token=${reutersToken}`)
     .then((xml) => {
