@@ -1,12 +1,12 @@
 // format for parsing the date
-var format = d3.time.format("%Y-%m-%d");
+var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
 
 /**********************************
  * Step0: Load data from json file *
  **********************************/
 
 // load data from a json file
-d3.json("json/data.json", function (error, mydata) {
+d3.json("json/input.json", function (error, mydata) {
     if (error) throw error;
 
     function print_filter(filter) {
@@ -21,10 +21,11 @@ d3.json("json/data.json", function (error, mydata) {
         d.date = format.parse(d.date);
         d.headline = d.headline;
         d.geography = d.geography;
-        d.country = d.country;
+        //d.country = d.country;
         d.detail =  d.detail;
         d.score =  parseInt(d.score);
         d.tags =  d.tags;
+        d.entities =  d.tags.entities;
     });
 
     var data2 = mydata.map(function(d) {
@@ -32,18 +33,20 @@ d3.json("json/data.json", function (error, mydata) {
             date: d.date,
             headline: d.headline,
             geography: d.geography,
-            country: d.country,
+            //country: d.country,
             detail: d.detail,
             score:  d.score,
-            tags:  d.tags
+            tags:  d.tags,
+            entities: d.entities
         };
     });
+    console.log(data2);
 
     /******************************************************
      * Step1: Create the dc.js chart objects & ling to div *
      ******************************************************/
 
-    // define charts
+        // define charts
     var worldChart = dc.geoChoroplethChart("#map");
 
     /****************************************
@@ -54,9 +57,11 @@ d3.json("json/data.json", function (error, mydata) {
     //print_filter('facts');
 
     var dateDimension = facts.dimension(function(d) { return d.date; });
-    var minDate = dateDimension.bottom(1)[0].date;
-    var maxDate = dateDimension.top(1)[0].date;
-    console.log(minDate, maxDate);
+
+    var currentTime = new Date();
+    //var minDate = dateDimension.bottom(1)[0].date;
+    //var maxDate = dateDimension.top(1)[0].date;
+    //console.log(currentTime, sixHoursAgo, minDate, maxDate);
 
     /******************************************************
      * Create the Dimensions                               *
@@ -64,14 +69,27 @@ d3.json("json/data.json", function (error, mydata) {
      * Crossfilter can filter by exact value, or by range. *
      ******************************************************/
 
-    var countries = facts.dimension(function(d){ return d.country; });
+    var countries = facts.dimension(function(d){ return d.geography; });
 
+    // Volumes by Time Dimension
     var volumeByDay = facts.dimension(function(d) {
         return d3.time.day(d.date);
     });
-
     var volumeByDayGroup = volumeByDay.group().reduceSum(function(d) { return d.score; });
     print_filter('volumeByDayGroup');
+
+    var volumeByLastSixHours = facts.dimension(function(d) {
+        return d3.time.hour.offset(currentTime, -6);
+    });
+    var volumeByLastSixHoursGroup = volumeByLastSixHours.group().reduceSum(function(d) { return d.score; });
+    print_filter('volumeByLastSixHoursGroup');
+
+    var volumeByLastHour = facts.dimension(function(d) {
+        return d3.time.hour(d.date);
+    });
+    var volumeByLastHourGroup = volumeByLastHour.group().reduceSum(function(d) { return d.score; });
+    print_filter('volumeByLastHourGroup');
+
 
     /***************************************
      * 	Step4: Create the Visualisations   *
