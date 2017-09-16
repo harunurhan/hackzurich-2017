@@ -1,61 +1,37 @@
-'use strict';
-
 const request = require('request-promise-native');
 
-// **********************************************
-// *** Update or verify the following values. ***
-// **********************************************
+//map format:
+// { id: 1, text: 'text' }
+function getSentiment(map) {
 
-// Replace the accessKey string value with your valid access key.
-let accessKey = '1771a25b81b74777a6fe40f4ad39882f';
+    let documents = Object.keys(map)
+        .map(id => {return {id, language: 'en', text: map[id]}})
 
-// Replace or verify the region.
-
-// You must use the same region in your REST API call as you used to obtain your access keys.
-// For example, if you obtained your access keys from the westus region, replace
-// "westcentralus" in the URI below with "westus".
-
-// NOTE: Free trial access keys are generated in the westcentralus region, so if you are using
-// a free trial access key, you should not need to change this region.
-
-let uri = 'https://westeurope.api.cognitive.microsoft.com';
-let path = '/text/analytics/v2.0';
-
-let response_handler = function (response) {
-    let body = '';
-    response.on ('data', function (d) {
-        body += d;
-    });
-    response.on ('end', function () {
-        let body_ = JSON.parse (body);
-        let body__ = JSON.stringify (body_, null, '  ');
-        console.log (body__);
-    });
-    response.on ('error', function (e) {
-        console.log ('Error: ' + e.message);
-    });
-};
-
-let get_sentiments = function (documents) {
-    let body = JSON.stringify (documents);
-
-    let request_params = {
-        method : 'POST',
-        hostname : uri,
-        path : path,
+    var options = {
+        url: 'https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
         headers : {
-            'Ocp-Apim-Subscription-Key' : accessKey,
-        }
+            'Ocp-Apim-Subscription-Key' : '1771a25b81b74777a6fe40f4ad39882f',
+        },
+        body: {documents},
+        json: true // Automatically stringifies the body to JSON
     };
 
-    let req = https.request (request_params, response_handler);
-    req.write (body);
-    req.end ();
+    return request
+        .post(options)
+        .then(parsedBody => {
+            return new Promise((resolve, reject) => {
+                let res = parsedBody.documents.map(doc => {
+                    return {
+                        text: map[doc.id],
+                        score: doc.score,
+                    }
+                });
+                resolve(res);
+            });
+        })
 }
 
-let documents = { 'documents': [
-    { 'id': '1', 'language': 'en', 'text': 'I really enjoy the new XBox One S. It has a clean look, it has 4K/HDR resolution and it is affordable.' },
-    { 'id': '2', 'language': 'es', 'text': 'Este ha sido un dia terrible, llegué tarde al trabajo debido a un accidente automobilistico.' },
-]};
+module.exports = {
+    getSentiment,
+};
 
-get_sentiments (documents);
