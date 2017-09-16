@@ -4,8 +4,6 @@ const Socket = require('socket.io');
 var bodyParser = require('body-parser');
 
 
-
-
 // serve frontend app
 var app = express();
 app.use(express.static('../frontend'));
