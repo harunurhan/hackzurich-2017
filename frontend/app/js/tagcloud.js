@@ -6,15 +6,14 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
 (function(){
     'use strict'
 
-    function drawWordcloudChart(ndx){
-        var wordDim = ndx.dimension(function(d){
-            console.log(d);
+    function drawWordcloudChart(facts){
+        var wordDim = facts.dimension(function(d){
             return d.tags['entities'][0].value;
         });
         console.log(wordDim);
 
         var wordGroup = wordDim.group().reduceSum(function(d){
-            return d.score;
+            return d.tags['entities'][0].relevance;
         });
         //console.log(wordGroup);
 
@@ -31,7 +30,7 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
                 return d.key[0].relevance*10},
             title: function (d) {
                 console.log(d.key);
-                return [d.key.value, 'Relevance: '+d.key.relevance].join('\n')
+                return [d.key, 'Relevance: '+d.value].join('\n')
             },
         });
 
@@ -73,23 +72,3 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
     })
 
 })();
-
-/*
-d.entities =  d.tags['entities'].forEach(function(d) {
-    console.log(d);
-    return {
-        entityType: d.entityType,
-        value: d.value,
-        relevance: parseFloat(d.relevance)
-    };
-});
-
- d.tags['entities'].forEach(function(d) {
- console.log(d);
- return {
- entityType: d.entityType,
- value: d.value,
- relevance: parseFloat(d.relevance)
- };
- });
-*/
