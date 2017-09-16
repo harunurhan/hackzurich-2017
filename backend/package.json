@@ -16,6 +16,7 @@
   "author": "Harun Urhan <harunurhan17@gmail.com> (http://harunurhan.github.io)",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.15.4",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
     "socket.io": "^2.0.3",

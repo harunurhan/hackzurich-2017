@@ -22,9 +22,7 @@ function getChannelList() {
         }).then(results => {
             return results;
         })
-
 }
-
 
 /**
  * Returns a promise that resolves to:

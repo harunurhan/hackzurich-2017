@@ -1,3 +1,14 @@
+var express = require('express');
+var app = express();
+
+
+app.use(express.static('../frontend/public'));
+
+app.listen(8080, () => {
+
+});
+
+
 // packages
 const socket = require('socket.io')({
   path: '/feed',
