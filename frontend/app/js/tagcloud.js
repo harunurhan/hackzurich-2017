@@ -9,14 +9,14 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
     function drawWordcloudChart(ndx){
         var wordDim = ndx.dimension(function(d){
             console.log(d);
-            return d.tags['entities'];
+            return d.tags['entities'][0].value;
         });
-        //console.log(wordDim);
+        console.log(wordDim);
 
         var wordGroup = wordDim.group().reduceSum(function(d){
             return d.score;
         });
-        console.log(wordGroup);
+        //console.log(wordGroup);
 
         wordcloudChart.options({
             height: 200,
@@ -30,8 +30,8 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
                 //console.log(d);
                 return d.key[0].relevance*10},
             title: function (d) {
-                console.log(d.key[0].value, d.key[0].relevance*10);
-                return [d.key[0].value, 'Relevance: '+d.key[0].relevance].join('\n')
+                console.log(d.key);
+                return [d.key.value, 'Relevance: '+d.key.relevance].join('\n')
             },
         });
 
