@@ -1,8 +1,3 @@
-var SDK;
-var recognizer;
-var startBtn, stopBtn, statusDiv, phraseDiv, hypothesisDiv;
-var phrase;
-
 // On doument load resolve the SDK dependecy
 function Initialize(onComplete) {
     require(["Speech.Browser.Sdk"], function(SDK) {
@@ -20,10 +15,13 @@ function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey
         recognitionMode, // SDK.RecognitionMode.Interactive  (Options - Interactive/Conversation/Dictation>)
         language, // Supported laguages are specific to each recognition mode. Refer to docs.
         format); // SDK.SpeechResultFormat.Simple (Options - Simple/Detailed)
+
     // Alternatively use SDK.CognitiveTokenAuthentication(fetchCallback, fetchOnExpiryCallback) for token auth
     var authentication = new SDK.CognitiveSubscriptionKeyAuthentication(subscriptionKey);
+
     return SDK.CreateRecognizer(recognizerConfig, authentication);
 }
+
 // Start the recognition
 function RecognizerStart(SDK, recognizer) {
     recognizer.Recognize((event) => {
@@ -56,11 +54,9 @@ function RecognizerStart(SDK, recognizer) {
                 break;
             case "SpeechSimplePhraseEvent" :
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
-                hypothesis = event.Result;
                 break;
             case "SpeechDetailedPhraseEvent" :
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
-                hypothesis = event.Result;
                 break;
             case "RecognitionEndedEvent" :
                 OnComplete();
@@ -76,65 +72,70 @@ function RecognizerStart(SDK, recognizer) {
                 console.error(error);
             });
 }
+
 // Stop the Recognition.
 function RecognizerStop(SDK, recognizer) {
     // recognizer.AudioSource.Detach(audioNodeId) can be also used here. (audioNodeId is part of ListeningStartedEvent)
     recognizer.AudioSource.TurnOff();
 }
 
-function Setup() {
-    recognizer = RecognizerSetup(SDK, SDK.RecognitionMode.Interactive, "en-GB", SDK.SpeechResultFormat["Simple"], "dc806059fe7e41e0ab3a1d798fd41565");
-}
+var startBtn, stopBtn, hypothesisDiv, phraseDiv, statusDiv;
+var SDK;
+var recognizer;
 
 document.addEventListener("DOMContentLoaded", function () {
+    createBtn = document.getElementById("createBtn");
     startBtn = document.getElementById("startBtn");
     stopBtn = document.getElementById("stopBtn");
-    statusDiv = document.getElementById("statusDiv");
     phraseDiv = document.getElementById("phraseDiv");
     hypothesisDiv = document.getElementById("hypothesisDiv");
+    statusDiv = document.getElementById("statusDiv");
 
     startBtn.addEventListener("click", function () {
         if (!recognizer) {
             Setup();
         }
+
         hypothesisDiv.innerHTML = "";
         phraseDiv.innerHTML = "";
         RecognizerStart(SDK, recognizer);
         startBtn.disabled = true;
         stopBtn.disabled = false;
     });
+
     stopBtn.addEventListener("click", function () {
         RecognizerStop(SDK, recognizer);
         startBtn.disabled = false;
         stopBtn.disabled = true;
     });
+
     Initialize(function (speechSdk) {
         SDK = speechSdk;
         startBtn.disabled = false;
     });
-    Initialize(luis => {
-        LUISClient = luis;
-    })
 });
 
-function UpdateRecognizedPhrase(json) {
-    phraseDiv.innerHTML = json;
-}
-function OnSpeechEndDetected() {
-    stopBtn.disabled = true;
+function Setup() {
+    recognizer = RecognizerSetup(SDK, SDK.RecognitionMode.Interactive, "en-US", SDK.SpeechResultFormat["Simple"], "dc806059fe7e41e0ab3a1d798fd41565");
 }
 
 function UpdateStatus(status) {
     statusDiv.innerHTML = status;
 }
 
-function OnComplete() {
-    callLuis(phrase);
-    startBtn.disabled = false;
+function UpdateRecognizedHypothesis(text) {
+    hypothesisDiv.innerHTML = text;
+}
+
+function OnSpeechEndDetected() {
     stopBtn.disabled = true;
 }
 
-function UpdateRecognizedHypothesis(text) {
-    phrase = text;
-    hypothesisDiv.innerHTML = text;
+function UpdateRecognizedPhrase(json) {
+    phraseDiv.innerHTML = json;
+}
+
+function OnComplete() {
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
 }
