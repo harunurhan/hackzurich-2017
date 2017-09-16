@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 // serve frontend app
 var app = express();
 
+
+
 // endpoint to latest news example: /news?last=10m
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -18,6 +20,10 @@ app.get('/news', (req, res) => {
 app.post('/luis', (req, res) => {
     callLuis(req.body.text)
         .then(result => res.json(result));
+})
+
+app.listen(8083, function () {
+    console.log('Example app listening on port 8083!')
 })
 
 // serve socket
