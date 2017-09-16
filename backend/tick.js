@@ -28,7 +28,7 @@ function tick(interval) {
           const lang = item.language;
           if (lang === 'en' || lang === 'es' || lang === 'fr') {
             return new Promise((resolve) => {
-              setTimeout(() => resolve(getTaggings(item.detail)), 1000 * index);
+              setTimeout(() => resolve(getTaggings(item.detail)), 1500 * index);
             })
           } else {
             return new Promise(resolve => resolve(undefined));
