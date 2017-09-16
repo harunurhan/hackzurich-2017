@@ -23,7 +23,7 @@ d3.json("json/input.json", function (error, mydata) {
         d.geography = d.geography;
         //d.country = d.country;
         d.detail =  d.detail;
-        d.score =  parseInt(d.score);
+        d.score =  parseFloat(d.score);
         d.tags =  d.tags;
         d.entities =  d.tags.entities;
     });

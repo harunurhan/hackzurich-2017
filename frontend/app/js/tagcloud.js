@@ -9,9 +9,9 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
     function drawWordcloudChart(ndx){
         var wordDim = ndx.dimension(function(d){
             console.log(d);
-            return d.geography;
+            return d.tags['entities'];
         });
-        console.log(wordDim);
+        //console.log(wordDim);
 
         var wordGroup = wordDim.group().reduceSum(function(d){
             return d.score;
@@ -26,8 +26,13 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
             relativeSize: 40,
             dimension: wordDim,
             group: wordGroup,
-            valueAccessor: function(d) {return d.score},
-            title: function (d) { return [d.geography, 'Emotion Score: '+d.score].join('\n')},
+            valueAccessor: function(d) {
+                //console.log(d);
+                return d.key[0].relevance*10},
+            title: function (d) {
+                console.log(d.key[0].value, d.key[0].relevance*10);
+                return [d.key[0].value, 'Relevance: '+d.key[0].relevance].join('\n')
+            },
         });
 
         wordcloudChart.render();
@@ -44,8 +49,8 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
             d.detail =  d.detail;
             d.score = parseFloat(d.score);
             d.tags =  d.tags;
-            d.entities =  d.tags.entities;
         });
+        console.log(mydata);
 
         var data2 = mydata.map(function(d) {
             return {
@@ -56,10 +61,10 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
                 detail: d.detail,
                 score: d.score,
                 tags:  d.tags,
-                entities: d.entities
+                entities: d.tags['entities']
             };
         });
-        console.log(data2);
+        //console.log(data2);
 
         var ndx = crossfilter(data2);
 
@@ -68,3 +73,23 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
     })
 
 })();
+
+/*
+d.entities =  d.tags['entities'].forEach(function(d) {
+    console.log(d);
+    return {
+        entityType: d.entityType,
+        value: d.value,
+        relevance: parseFloat(d.relevance)
+    };
+});
+
+ d.tags['entities'].forEach(function(d) {
+ console.log(d);
+ return {
+ entityType: d.entityType,
+ value: d.value,
+ relevance: parseFloat(d.relevance)
+ };
+ });
+*/
