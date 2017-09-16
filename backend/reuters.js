@@ -8,9 +8,9 @@ const taggingApiUrl = 'https://api.thomsonreuters.com/permid/calais';
 
 const parser = new xml2js.Parser();
 
-function getChannelItems(channelId) {
+function getChannelItems(channelId, maxAge = '1h') {
   return request
-    .get(`${reutersApiUrl}/items?channel=${channelId}&token=${reutersToken}`)
+    .get(`${reutersApiUrl}/items?channel=${channelId}&mediaType=T&maxAge=${maxAge}&token=${reutersToken}`)
     .then((xml) => {
       return new Promise((resolve, reject) => {
         parser.parseString(xml, (err, body) => {
@@ -65,7 +65,7 @@ function getTaggings(content) {
           const value = json[key];
           if (value._typeGroup === 'socialTag') {
             pretty.socialTags.push(value.originalValue);
-          } else if(value._typeGroup === 'entities') {
+          } else if (value._typeGroup === 'entities') {
             pretty.entities.push({
               entityType: value._type,
               value: value.name,
