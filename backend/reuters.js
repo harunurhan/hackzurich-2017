@@ -8,6 +8,25 @@ const taggingApiUrl = 'https://api.thomsonreuters.com/permid/calais';
 
 const parser = new xml2js.Parser();
 
+
+function getChannelList() {
+    return request
+        .get(`${reutersApiUrl}/channels?token=${reutersToken}`)
+        .then((xml) => {
+            return new Promise((resolve, reject) => {
+                parser.parseString(xml, (err, body) => {
+                   if(err) reject(err);
+                   resolve(body.availableChannels);
+                });
+            });
+        }).then(results => {
+            return results;
+        })
+
+}
+
+getChannelList();
+
 /**
  * Returns a promise that resolves to:
  *   [
