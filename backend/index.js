@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 
 // serve frontend app
 var app = express();
-// app.use(express.static('../frontend'));
 
 // endpoint to latest news example: /news?last=10m
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,10 +19,6 @@ app.post('/luis', (req, res) => {
     callLuis(req.body.text)
         .then(result => res.json(result));
 })
-
-// app.listen(8080, () => {
-//   console.log('Serving static files at port 8080');
-// });
 
 // serve socket
 const socket = Socket({
@@ -46,7 +41,7 @@ setInterval(() => {
     });
   */
   socket.emit('feed', {data: "hello"});
-}, 10000)
+}, 1000)
 
 
 
