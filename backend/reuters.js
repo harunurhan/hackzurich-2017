@@ -25,7 +25,6 @@ function getChannelList() {
 
 }
 
-getChannelList();
 
 /**
  * Returns a promise that resolves to:
