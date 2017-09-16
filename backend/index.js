@@ -1,26 +1,32 @@
 var express = require('express');
 var app = express();
 
+var server = require('http').createServer(app);
+
+server.listen(3000, function () {
+    console.log('Socket-Server listening at port 3000');
+});
+
+
 app.use(express.static('../frontend/public'));
-
 app.listen(8080, () => {
-
+    console.log('Socket-Server listening at port 8080');
 });
 
 // packages
-const socket = require('socket.io')({
-  path: '/feed',
-  serveClient: false,
-});
+// const socket = require('socket.io')({
+//   path: '/feed',
+//   serveClient: false,
+// });
+// socket.attach(3000, {
+//   pingInterval: 10000,
+//   pingTimeout: 5000,
+//   cookie: false
+// });
 
 const { getChannelItems, getTaggings } = require('./reuters');
 const { getSentiment } = require('./textanalyze');
 
-socket.attach(3000, {
-  pingInterval: 10000,
-  pingTimeout: 5000,
-  cookie: false
-});
 
 Promise.all([
   getChannelItems('BEQ259'),
