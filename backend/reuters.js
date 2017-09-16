@@ -3,6 +3,8 @@ const xml2js = require('xml2js');
 
 const reutersToken = '0Uar2fCpykWmqCu0MhrDn2n6/ssLT91S81kIX5wuiTI=';
 const reutersApiUrl = 'http://rmb.reuters.com/rmd/rest/xml';
+const taggingToken = 'S9lrS8NnxMV8L9KjArzSKCWfeVIFwPS5';
+const taggingApiUrl = 'https://api.thomsonreuters.com/permid/calais';
 
 const parser = new xml2js.Parser();
 
@@ -35,13 +37,49 @@ function getItemDetail(itemId) {
             .html[0]
             .body[0]
             .p
-          return paragraphs.join();
+          resolve(paragraphs.join());
         });
       });
     });
 }
 
+function getTaggings(content) {
+  return request.post({
+    url: taggingApiUrl,
+    headers: {
+      'x-ag-access-token': taggingToken,
+      'Accept': 'application/json',
+      'outputFormat': 'application/json',
+      'Content-Type': 'text/raw'
+    },
+    json: true,
+    body: content,
+  }).then(json => {
+    return new Promise((resolve) => {
+      pretty = {
+        socialTags: [],
+        entities: [],
+      };
+      Object.keys(json)
+        .forEach(key => {
+          const value = json[key];
+          if (value._typeGroup === 'socialTag') {
+            pretty.socialTags.push(value.originalValue);
+          } else if(value._typeGroup === 'entities') {
+            pretty.entities.push({
+              entityType: value._type,
+              value: value.name,
+              relevance: value.relevance
+            })
+          }
+        });
+      resolve(pretty);
+    });
+  });
+};
+
 module.exports = {
   getChannelItems,
-  getItemDetail
+  getItemDetail,
+  getTaggings
 };
