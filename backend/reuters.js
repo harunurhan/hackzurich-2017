@@ -32,7 +32,9 @@ function getChannelItems(channelId, maxAge = '1h') {
           return new Promise((resolve, reject) => {
             const pretty = {};
             pretty.headline = result.headline[0];
-            pretty.geography = result.geography[0];
+            if (result.geography) {
+              pretty.geography = result.geography[0];
+            }
             getItemDetail(result.id[0])
               .then((detail) => {
                 pretty.detail = detail;
