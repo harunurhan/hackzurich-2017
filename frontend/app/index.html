@@ -59,59 +59,8 @@
 	<div id="info"><span id="name"></span></div>
 	<div id="sidebar"> 
 		<div class="tagcloud">   
-			<div id="htmltagcloud">  <span id="0" class="wrd tagcloud0"> 				<a
-					href="#tagcloud">adaptogen</a></span> <span id="1" class="wrd tagcloud0"> 				<a
-					href="#tagcloud">bag</a></span> <span id="2" class="wrd tagcloud0"> 			<a href="#tagcloud">beard</a></span>
-				<span id="3" class="wrd tagcloud6"> 			<a href="#tagcloud">booth</a></span> <span id="4"
-																										   class="wrd tagcloud0"> 			<a
-						href="#tagcloud">brooklyn</a></span> <span id="5" class="wrd tagcloud10"> 			<a
-						href="#tagcloud">cardigan</a></span>  <span id="6" class="wrd tagcloud0"> 				<a
-						href="#tagcloud">carry</a></span>  <span id="7" class="wrd tagcloud6"> 				<a
-						href="#tagcloud">chia</a></span> <span id="8" class="wrd tagcloud0"> 			<a
-						href="#tagcloud">chicken</a></span>  <span id="9" class="wrd tagcloud0"> 				<a
-						href="#tagcloud">cleanse</a></span>  <span id="10" class="wrd tagcloud0"> 				<a
-						href="#tagcloud">cliche</a></span> <span id="11" class="wrd tagcloud6"> 			<a
-						href="#tagcloud">coffee</a></span> <span id="12" class="wrd tagcloud0"> 			<a
-						href="#tagcloud">cold-pressed</a></span>  <span id="13" class="wrd tagcloud0"><a
-						href="#tagcloud">cred</a></span>  <span id="14" class="wrd tagcloud0"> 				<a
-						href="#tagcloud">drinking</a></span> <span id="15" class="wrd tagcloud6"> 			<a
-						href="#tagcloud">enamel</a></span> <span id="16" class="wrd tagcloud0"> 			<a
-						href="#tagcloud">ethical</a></span> <span id="17" class="wrd tagcloud6"> 			<a
-						href="#tagcloud">food</a></span>  <span id="18" class="wrd tagcloud0"><a href="#tagcloud">heirloom</a></span> 
-				<span id="19" class="wrd tagcloud0"> 				<a href="#tagcloud">hoodie</a></span> <span id="20"
-																												 class="wrd tagcloud0"> 			<a
-						href="#tagcloud">humblebrag</a></span>  <span id="21" class="wrd tagcloud0"><a href="#tagcloud">iphone</a></span> 
-				<span id="22" class="wrd tagcloud6"> 				<a href="#tagcloud">irony</a></span> <span id="23"
-																												class="wrd tagcloud6"> 			<a
-						href="#tagcloud">kogi</a></span> <span id="24" class="wrd tagcloud0"> 			<a
-						href="#tagcloud">master</a></span>  <span id="25" class="wrd tagcloud6"><a href="#tagcloud">meggings</a></span> 
-				<span id="26" class="wrd tagcloud0"><a href="#tagcloud">meh</a></span> <span id="27"
-																							 class="wrd tagcloud6"> 			<a
-						href="#tagcloud">mixtape</a></span>  <span id="28" class="wrd tagcloud0"><a href="#tagcloud">party</a></span> 
-				<span id="29" class="wrd tagcloud0"> 				<a href="#tagcloud">pbr</a></span> <span id="30"
-																											  class="wrd tagcloud6"> 			<a
-						href="#tagcloud">photo</a></span> <span id="31" class="wrd tagcloud6"> 			<a 				href="#tagcloud">pin</a></span>
-				<span id="32" class="wrd tagcloud0"> 			<a href="#tagcloud">polaroid</a></span>  <span id="33"
-																												class="wrd tagcloud6"><a
-						href="#tagcloud">portland</a></span>  <span id="34" class="wrd tagcloud0"> 				<a
-						href="#tagcloud">pug</a></span> <span id="35" class="wrd tagcloud0"> 			<a
-						href="#tagcloud">semiotics</a></span> <span id="36" class="wrd tagcloud0"> 			<a
-						href="#tagcloud">shorts</a></span> <span id="37" class="wrd tagcloud6"> 			<a
-						href="#tagcloud">single-origin</a></span>  <span id="38" class="wrd tagcloud0"><a
-						href="#tagcloud">tattooed</a></span>  <span id="39" class="wrd tagcloud0"> 				<a
-						href="#tagcloud">tbh</a></span> <span id="40" class="wrd tagcloud6"> 			<a
-						href="#tagcloud">tilde</a></span> <span id="41" class="wrd tagcloud6"> 			<a
-						href="#tagcloud">truck</a></span>  <span id="42" class="wrd tagcloud0"><a
-						href="#tagcloud">trust</a></span>  <span id="43" class="wrd tagcloud0"><a href="#tagcloud">tumblr</a></span>
-				<span id="44" class="wrd tagcloud0"> 			<a href="#tagcloud">twee</a></span>  <span id="45"
-																											class="wrd tagcloud0"><a
-						href="#tagcloud">vaporware</a></span>  <span id="46" class="wrd tagcloud0"> 				<a
-						href="#tagcloud">venmo</a></span> <span id="47" class="wrd tagcloud0"> 			<a
-						href="#tagcloud">vexillologist</a></span>  <span id="48" class="wrd tagcloud0"><a
-						href="#tagcloud">vinegar</a></span>  <span id="49" class="wrd tagcloud0"> 				<a
-						href="#tagcloud">viral</a></span> 
+			<div id="cloudChart">
 			</div>
-			    
 		</div>
 		 
 		<div class="newsfeed">
@@ -263,5 +212,13 @@
 //    }
 
 </script>
+
+<script type="text/javascript" src="js/d3.layout.cloud.js"></script>
+<script type="text/javascript" src="js/dc-wordcloud.js"></script>
+<script type="text/javascript">
+    var data = 'json/input.json';
+</script>
+<script type="text/javascript" src="js/tagcloud.js"></script>
+
 </body>
 </html>
