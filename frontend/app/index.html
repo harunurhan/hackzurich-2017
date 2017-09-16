@@ -5,8 +5,8 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/d3.geo.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/main.css"/>
 	<!--<link type="text/css" rel="stylesheet" href="css/style.css"/>-->
 	<link type="text/css" rel="stylesheet" href="css/colorbrewer.css"/>
@@ -92,6 +92,7 @@
 <script src='js/dc.js' type='text/javascript'></script>
 <script src='js/data-processing.js' type='text/javascript'></script>
 <script type="text/javascript">
+	news = [];
 
     var width = window.innerWidth ;//960, //1280 
 		height = window.innerHeight;//800;
@@ -125,38 +126,47 @@
         .on("mousedown", mousedown);
 
 
-    d3.json("json/world-countries.json", function(collection) {
-        feature = svg.selectAll("path")
-            .data(collection.features)
-            .enter()
-            .append("svg:path")
-            .attr('class', 'states')
-            .attr("id", stateId)
-			.attr("d", clip)
-            .on('mouseover', function(d){
-                var name = d.properties.name;
-                return document.getElementById('name').innerHTML=name;
+
+//	var d3json = function() {
+
+        d3.json("json/world-countries.json", function (collection) {
+            feature = svg.selectAll("path")
+                .data(collection.features)
+                .enter()
+                .append("svg:path")
+                .attr('class', 'states')
+                .attr("id", stateId)
+                .attr("d", clip)
+                .on('mouseover', function (d) {
+                    var name = d.properties.name;
+                    return document.getElementById('name').innerHTML = name;
+                });
+
+
+            feature.append("svg:title")
+                .text(function (d) {
+                    return d.properties.name;
+                });
+
+            d3.json("json/input.json", function (newscollection) {
+                console.log(news);
+                $.each(newscollection, function () {
+                    var feature = $('#state-' + this.geography);
+                    if (this.score < 0.4) {
+                        feature.attr('class', 'states negative');
+                    } else if (this.score >= 0.4 && this.score < 0.6) {
+                        feature.attr('class', 'states neutral');
+                    } else if (this.score >= 0.6) {
+                        feature.attr('class', 'states positive');
+                    }
+                });
             });
 
-
-        feature.append("svg:title")
-            .text(function(d) { return d.properties.name; });
-
-        d3.json("json/input.json", function(newscollection) {
-
-            $.each(newscollection, function(){
-                var feature = $('#state-'+this.geography);
-                if(this.score < 0.4){
-                    feature.attr('class', 'states negative');
-                } else if (this.score >= 0.4 && this.score < 0.6){
-                    feature.attr('class', 'states neutral');
-                } else if(this.score >= 0.6){
-                    feature.attr('class', 'states positive');
-                }
-            });
         });
-
-    });
+//    }();
+//    setInterval(function() {
+//        d3json;
+//	}, 15000)
 
 
 
@@ -207,18 +217,31 @@
     function stateId(d) {
         return "state-"+d.id;
 	}
+    /*$.ajax({
+        url: "js/main.js",
+        success: function(result,status,xhr){
+            console.log("asdf", result,status,xhr);
+            news = result;
+        },
+		error: function(){
+            console.log("error");
+		}
+    });*/
 
-
-//    if(document.querySelector('.'+user.state)) {
-//        tally[user.state] = (tally[user.state] || {positive: 0, negative: 0});
-//        tally[user.state][emotion.type] = (tally[user.state][emotion.type] || 0) + 1;
-//
-//        var stateEl = document.querySelector('.'+user.state);
-//        stateEl.style.fill = (tally[user.state].positive > tally[user.state].negative) ? positiveColor : ((tally[user.state].positive < tally[user.state].negative) ? negativeColor :neutralColor);
-//
-//        stateEl.setAttribute('data-positive', tally[user.state].positive);
-//        stateEl.setAttribute('data-negative', tally[user.state].negative);
-//    }
+    setInterval(function(){
+	console.log(news);
+        $.each(news, function () {
+            var feature = $('#state-' + this.geography);
+            console.log(this);
+            if (this.score < 0.4) {
+                feature.attr('class', 'states negative');
+            } else if (this.score >= 0.4 && this.score < 0.6) {
+                feature.attr('class', 'states neutral');
+            } else if (this.score >= 0.6) {
+                feature.attr('class', 'states positive');
+            }
+        });
+	}, 1500);
 
 </script>
 

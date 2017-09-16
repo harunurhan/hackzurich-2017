@@ -38,16 +38,15 @@ socket.attach(8080, {
 });
 
 setInterval(() => {
-  /*
   tick('10m')
     .then(results => {
       console.log(results);
+        socket.emit('feed', {news: results});
     }).catch(err => {
       console.error(err);
     });
-  */
-  socket.emit('feed', {data: "hello"});
-}, 1000)
+  //socket.emit('feed', {data: "asdf"});
+}, 15000)
 
 
 
