@@ -46,11 +46,6 @@ function getChannelItems(channelId, maxAge = '1h') {
     });
 }
 
-getChannelItems('STK567')
-  .then(items => {
-    console.log(items);
-  })
-
 function getItemDetail(itemId) {
   return request
     .get(`${reutersApiUrl}/item?id=${itemId}&token=${reutersToken}`)
