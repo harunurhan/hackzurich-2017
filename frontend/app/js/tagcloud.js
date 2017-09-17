@@ -1,4 +1,5 @@
-var wordcloudChart = dc.wordcloudChart('#cloudChart');
+var persons_wordcloudChart = dc.wordcloudChart('#persons-cloudChart');
+var organizations_wordcloudChart = dc.wordcloudChart('#organizations-cloudChart');
 
 // format for parsing the date
 var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
@@ -7,24 +8,51 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
     'use strict'
 
     function drawWordcloudChart(facts){
-        var wordDim = facts.dimension(function(d){
+        var persons_wordDim = facts.dimension(function(d){
             return d.tags['entities'][0].value;
         });
-        console.log(wordDim);
+        console.log(persons_wordDim);
 
-        var wordGroup = wordDim.group().reduceSum(function(d){
+        var persons_wordGroup = persons_wordDim.group().reduceSum(function(d){
             return d.tags['entities'][0].relevance;
         });
         //console.log(wordGroup);
 
-        wordcloudChart.options({
+        var organizations_wordDim = facts.dimension(function(d){
+            return d.tags['entities'][1].value;
+        });
+        console.log(organizations_wordDim);
+
+        var organizations_wordGroup = organizations_wordDim.group().reduceSum(function(d){
+            return d.tags['entities'][1].relevance;
+        });
+        //console.log(wordGroup);
+
+        persons_wordcloudChart.options({
             height: 200,
             width: 200,
             //minY: -20,
             //minX: -40,
             relativeSize: 40,
-            dimension: wordDim,
-            group: wordGroup,
+            dimension: persons_wordDim,
+            group: persons_wordGroup,
+            valueAccessor: function(d) {
+                //console.log(d);
+                return d.key[0].relevance*10},
+            title: function (d) {
+                console.log(d.key);
+                return [d.key, 'Relevance: '+d.value].join('\n')
+            },
+        });
+
+        organizations_wordcloudChart.options({
+            height: 200,
+            width: 200,
+            //minY: -20,
+            //minX: -40,
+            relativeSize: 40,
+            dimension: organizations_wordDim,
+            group: organizations_wordGroup,
             valueAccessor: function(d) {
                 //console.log(d);
                 return d.key[0].relevance*10},
