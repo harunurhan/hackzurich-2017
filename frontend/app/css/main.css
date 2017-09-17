@@ -20,11 +20,40 @@ body {
   padding: 1em;
   text-align: right;
 }
-#info {
-  position: absolute;
-  top: 2em;
+#headerWrapper{
+  align-self: auto;
+  height: 56px;
+  width: 100%;
+  position: relative;
+  font: helvetica;
+  font-size: 24px;
+  color: white;
+  background-color: #666666;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, .5);
 }
-#info #name {
+#infoBox {
+  position: absolute;
+  float:left;
+  margin-top: 44px;
+  margin-left: 12px;
+  top: 10px;
+  left: 10px;
+}
+h1 {
+  margin-left: 12px;
+  margin-top: 0px;
+  font-family: helvetica;
+  font-size: 2em;
+  color: #cccccc;
+}
+h2 {
+  font-family: helvetica;
+  font-size: 1.6em;
+  color: #ffffff;
+}
+#name {
+  font: helvetica;
+  font-size: 1.4em;
   color: #FFFFFF;
 }
 .browserupgrade {
@@ -83,116 +112,6 @@ body {
 
 .wrd a {
   text-decoration: none
-}
-
-.tagcloud0 {
-  font-size: 1em;
-  color: #ffffff;
-  z-index: 10
-}
-
-.tagcloud0 a {
-  color: #ffffff
-}
-
-.tagcloud1 {
-  font-size: 1em;
-  color: #f0f0f0;
-  z-index: 9
-}
-
-.tagcloud1 a {
-  color: #f0f0f0
-}
-
-.tagcloud2 {
-  font-size: 1em;
-  color: #f0f0f0;
-  z-index: 8
-}
-
-.tagcloud2 a {
-  color: #f0f0f0
-}
-
-.tagcloud3 {
-  font-size: 1em;
-  color: #bdbdbd;
-  z-index: 7
-}
-
-.tagcloud3 a {
-  color: #bdbdbd
-}
-
-.tagcloud4 {
-  font-size: 1.2em;
-  color: #d9d9d9;
-  z-index: 6
-}
-
-.tagcloud4 a {
-  color: #d9d9d9
-}
-
-.tagcloud5 {
-  font-size: 1.4em;
-  color: #f0f0f0;
-  z-index: 5
-}
-
-.tagcloud5 a {
-  color: #f0f0f0
-}
-
-.tagcloud6 {
-  font-size: 1.6em;
-  color: #ffffff;
-  z-index: 4
-}
-
-.tagcloud6 a {
-  color: #ffffff
-}
-
-.tagcloud7 {
-  font-size: 1.8em;
-  color: #bdbdbd;
-  z-index: 3
-}
-
-.tagcloud7 a {
-  color: #bdbdbd
-}
-
-.tagcloud8 {
-  font-size: 2em;
-  color: #d9d9d9;
-  z-index: 2
-}
-
-.tagcloud8 a {
-  color: #d9d9d9
-}
-
-.tagcloud9 {
-  font-size: 2.2em;
-  color: #f0f0f0;
-  z-index: 1
-}
-
-.tagcloud9 a {
-  color: #f0f0f0
-}
-
-.tagcloud10 {
-  font-size: 2.4em;
-  color: #ffffff;
-  z-index: 0
-}
-
-.tagcloud10 a {
-  color: #ffffff
 }
 
 .freq {

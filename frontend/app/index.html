@@ -13,6 +13,8 @@
 	<style type="text/css">
 
 		svg {
+			margin-left: 12px;
+			margin-top: 18px;
 			width: 800px;
 			 height: 800px;
 			pointer-events: all;
@@ -25,19 +27,6 @@
 		path {
 			fill: #aaa;
 			stroke: #fff;
-		}
-
-
-		h1 {
-			font-family:arial;
-			font-size:2em;
-			color:#ffffff;
-		}
-
-		#info {
-			position:absolute;
-			top: 10px;
-			left: 10px;
 		}
 
 		.states {
@@ -56,8 +45,11 @@
 <body>
 
 <div id="body">
-	<div id="info">
-		<span id="name"></span>
+	<div id="headerWrapper">
+		<h1>TrendAtlas</h1>
+	</div>
+
+	<div id="infoBox">
 		<section class="legendbox">
 			<ul>
 				<li><div class="happy"></div>positive news</li>
@@ -65,7 +57,9 @@
 				<li><div class="sad"></div>negative news</li>
 			</ul>
 		</section>
+		<span id="name"></span>
 	</div>
+
 	<div id="sidebar"> 
 		<div class="tagcloud">   
 			<div id="cloudChart">
