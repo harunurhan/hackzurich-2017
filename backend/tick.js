@@ -33,25 +33,26 @@ function tick(interval) {
           reject(err);
         });
     });
-  }).then(allItems => {
-    return new Promise((resolve, reject) => {
-      promiseAllSync(allItems, (item) => {
-        let lang = item.language;
-        if (lang === 'en' || lang === 'es' || lang === 'fr') {
-          return getTaggings(item.detail);
-        } else {
-          return Promise.resolve();
-        }
-      }).then(taggings => {
-        resolve(allItems.map((item, index) => {
-          item.tags = taggings[index];
-          return item;
-        }));
-      }).catch(err => {
-        reject(err);
-      });
-    });
   });
+//   .then(allItems => {
+//     return new Promise((resolve, reject) => {
+//       promiseAllSync(allItems, (item) => {
+//         let lang = item.language;
+//         if (lang === 'en' || lang === 'es' || lang === 'fr') {
+//           return getTaggings(item.detail);
+//         } else {
+//           return Promise.resolve(item);
+//         }
+//       }).then(taggings => {
+//         resolve(allItems.map((item, index) => {
+//           item.tags = taggings[index];
+//           return item;
+//         }));
+//       }).catch(err => {
+//         reject(err);
+//       });
+//     });
+//   });
 }
 
 module.exports = tick;

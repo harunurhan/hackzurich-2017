@@ -7,6 +7,7 @@ function getSentiment(array) {
 
     let documents = array
         .map((text, id) => {
+            if (!text || text === "") text = "no text found";
             return { id, language: 'en', text };
         });
 
@@ -19,19 +20,23 @@ function getSentiment(array) {
         json: true
     };
 
-    return request
-        .post(options)
-        .then(parsedBody => {
-            return new Promise((resolve) => {
-                let pretty = parsedBody.documents.map(doc => {
-                    return {
-                        index: doc.id,
-                        score: doc.score,
-                    }
+    if(documents){
+
+
+        return request
+            .post(options)
+            .then(parsedBody => {
+                return new Promise((resolve) => {
+                    let pretty = parsedBody.documents.map(doc => {
+                        return {
+                            index: doc.id,
+                            score: doc.score,
+                        }
+                    });
+                    resolve(pretty);
                 });
-                resolve(pretty);
-            });
-        })
+            })
+    }
 }
 
 module.exports = {
