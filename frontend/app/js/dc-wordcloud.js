@@ -121,7 +121,7 @@
             _g
                 .attr("width", _chart.width())
                 .attr("height", _chart.height())
-                .attr("transform", "translate(150,150)")
+                .attr("transform", "translate(0,150)")
                 .selectAll("text")
                 .data(words)
                 .enter().append("text")
