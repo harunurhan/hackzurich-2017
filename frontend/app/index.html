@@ -8,16 +8,16 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/main.css"/>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 	<!--<link type="text/css" rel="stylesheet" href="css/style.css"/>-->
 	<link type="text/css" rel="stylesheet" href="css/colorbrewer.css"/>
 	<style type="text/css">
 
-		svg {
+		svg#atlas {
 			margin-left: 12px;
 			margin-top: 18px;
 			width: 800px;
-			 height: 800px;
+			height: 700px;
 			pointer-events: all;
 		}
 
@@ -126,6 +126,7 @@
     var svg = d3.select("#body").append("svg:svg")
         .attr("width", width)
         .attr("height", height)
+		.attr("id", "atlas")
         .on("mousedown", mousedown);
 
 
@@ -147,7 +148,7 @@
 
 
             feature.append("svg:title")
-                .text(function (d) {
+					.text(function (d) {
                     return d.properties.name;
                 });
 

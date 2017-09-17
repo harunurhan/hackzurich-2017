@@ -11,7 +11,7 @@
         var _cloud = null,
             _g = null,
             _padding = 5,
-            _font = "Impact",
+            _font = "lighter 14px Open Sans",
             _relativeSize = 10,
             _minX = 0,
             _minY = 0,
@@ -35,7 +35,7 @@
             _g = d3.select(_chart.anchor())
                 .append("svg")
                 .attr("height",_chart.height())
-                .attr("width",_chart.width())
+                .attr("width","400px")
                 .append('g')
                 //.on('click', _chart.onClick)
                 .attr('cursor', 'pointer');
@@ -126,7 +126,7 @@
                 .data(words)
                 .enter().append("text")
                 .style("font-size", function(d) { return d.size + "px"; })
-                .style("font-family", _chart.font())
+                .style("font", _chart.font())
                 .style("fill", function(d, i) { return _fill(i); })
                 .attr("text-anchor", "middle")
                 .attr("transform", function(d) {

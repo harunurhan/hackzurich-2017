@@ -89,34 +89,7 @@ h3 {
   border-radius: 3px;
 }
 
-/* TAG CLOUD */
-
-#htmltagcloud {
-  line-height: 1.8em;
-  word-spacing: normal;
-  letter-spacing: normal;
-  text-transform: none;
-  text-align: justify;
-  text-indent: 0;
-  padding: 2em;
-}
-
-#htmltagcloud a:link {
-  text-decoration: none
-}
-
-#htmltagcloud a:visited {
-  text-decoration: none
-}
-
-#htmltagcloud a:hover {
-  font-weight:bold;
-}
-
-#htmltagcloud a:active {
-  color: white;
-}
-
+#
 .wrd {
   padding: 0;
   position: relative
@@ -131,25 +104,9 @@ h3 {
   color: #bbb
 }
 
-#credit {
-  text-align: center;
-  color: #fff;
-  margin-bottom: 0.6em;
-  font: 0.5em;
-}
-
-#credit a:link {
-  color: #777;
-  text-decoration: none
-}
-
-#credit a:visited {
-  color: #777;
-  text-decoration: none
-}
-
-#credit a:hover {
-  font-weight: bold;
+#tagcloud text {
+  font-family: "Open Sans" !important;
+  font-weight: 300 !important;
 }
 
 .states.negative {
