@@ -15,8 +15,9 @@
             _relativeSize = 10,
             _minX = 0,
             _minY = 0,
-            _fill = d3.scale.category20();
-
+            _fill = d3.scale.linear()
+                .domain([0,1])
+                .range(["#63A69F", "#FF8586", "#DECEB3"]);
 
         _chart._doRender = function (){
             _chart.on('postRender',function(){
