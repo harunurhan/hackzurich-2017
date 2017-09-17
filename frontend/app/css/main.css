@@ -20,6 +20,14 @@ body {
   padding: 1em;
   text-align: right;
 }
+#authors {
+  position: absolute;
+  color: #ffffff;
+  bottom: 10px;
+  right: 10px;
+  font-size: 8px;
+  font-family: "Open Sans";
+}
 #headerWrapper{
   align-self: auto;
   height: 56px;
@@ -145,10 +153,10 @@ h3 {
 }
 
 .states.negative {
-  fill: #63A69F;
+  fill: #FF8586;
 }
 .states.positive {
-  fill: #FF8586;
+  fill: #63A69F;
 }
 .states.neutral {
   fill: #DECEB3;
@@ -174,7 +182,7 @@ ul {
   border-radius: 50%;
   background-color: #FF8586;
 }
-.legendbox li div.sad {
+.legendbox li div.negative {
   background-color: #63A69F;
 }
 .legendbox li div.neutral {
