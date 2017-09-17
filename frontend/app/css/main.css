@@ -192,10 +192,11 @@ ul {
   margin-top: 0;
 }
 #sidebar h3 {
-  font-size: 1.1em;
+  font-size: .9em;
+  font-weight:normal;
   color: #ffffff;
   text-transform: uppercase;
-  font-family: "open sans";
+  font-family: "Open Sans";
   margin: 2em 0 0.7em;
 }
 @media screen and (max-width: 700px) {
