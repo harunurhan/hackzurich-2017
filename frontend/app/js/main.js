@@ -27,6 +27,7 @@ var path = d3.geo.path()
 var svg = d3.select("#body").append("svg:svg")
     .attr("width", width)
     .attr("height", height)
+    .attr("id", "atlas")
     .on("mousedown", mousedown);
 
 
