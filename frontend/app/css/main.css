@@ -20,6 +20,14 @@ body {
   padding: 1em;
   text-align: right;
 }
+#authors {
+  position: absolute;
+  color: #ffffff;
+  bottom: 10px;
+  right: 10px;
+  font-size: 8px;
+  font-family: "Open Sans";
+}
 #headerWrapper{
   align-self: auto;
   height: 56px;
@@ -81,34 +89,7 @@ h3 {
   border-radius: 3px;
 }
 
-/* TAG CLOUD */
-
-#htmltagcloud {
-  line-height: 1.8em;
-  word-spacing: normal;
-  letter-spacing: normal;
-  text-transform: none;
-  text-align: justify;
-  text-indent: 0;
-  padding: 2em;
-}
-
-#htmltagcloud a:link {
-  text-decoration: none
-}
-
-#htmltagcloud a:visited {
-  text-decoration: none
-}
-
-#htmltagcloud a:hover {
-  font-weight:bold;
-}
-
-#htmltagcloud a:active {
-  color: white;
-}
-
+#
 .wrd {
   padding: 0;
   position: relative
@@ -123,32 +104,16 @@ h3 {
   color: #bbb
 }
 
-#credit {
-  text-align: center;
-  color: #fff;
-  margin-bottom: 0.6em;
-  font: 0.5em;
-}
-
-#credit a:link {
-  color: #777;
-  text-decoration: none
-}
-
-#credit a:visited {
-  color: #777;
-  text-decoration: none
-}
-
-#credit a:hover {
-  font-weight: bold;
+#tagcloud text {
+  font-family: "Open Sans" !important;
+  font-weight: 300 !important;
 }
 
 .states.negative {
-  fill: #63A69F;
+  fill: #FF8586;
 }
 .states.positive {
-  fill: #FF8586;
+  fill: #63A69F;
 }
 .states.neutral {
   fill: #DECEB3;
@@ -174,7 +139,7 @@ ul {
   border-radius: 50%;
   background-color: #FF8586;
 }
-.legendbox li div.sad {
+.legendbox li div.negative {
   background-color: #63A69F;
 }
 .legendbox li div.neutral {
