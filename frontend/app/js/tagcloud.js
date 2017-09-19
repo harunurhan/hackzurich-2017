@@ -62,7 +62,7 @@ var format = d3.time.format("%Y-%m-%dT%XZ"); //2017-09-16T16:14:31Z
             },
         });
 
-        wordcloudChart.render();
+        dc.renderAll();
     }
 
     d3.json(data, function (error, mydata) {

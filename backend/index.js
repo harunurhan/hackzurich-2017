@@ -38,7 +38,7 @@ socket.attach(8080, {
 });
 
 setInterval(() => {
-  tick('240m')
+  tick('420m')
     .then(results => {
       console.log(results);
         socket.emit('feed', {news: results});
